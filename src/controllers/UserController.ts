@@ -8,10 +8,11 @@ import bcrypt from 'bcrypt';
 
 async function list(req: Request, res: Response) {
   try {
-    const { email } = req.query;
+    const { email, guid } = req.query;
     const user = await dataSource.getRepository(User).find({
       where: {
         ...(email ? { email: email as string } : {}),
+        ...(guid ? { guid: guid as string } : {}),
       },
     });
     return res.status(200).json(UserMapper.map(user));
