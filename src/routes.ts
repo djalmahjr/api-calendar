@@ -1,19 +1,29 @@
 import { Router } from 'express';
 import EventController from './controllers/EventController';
 import UserController from './controllers/UserController';
+import AuthController from './controllers/AuthController';
+import { AuthMiddleware } from './middlewares/AuthMiddleware';
 
 const routes = Router();
 
-routes.route('/users').get(UserController.list).post(UserController.create);
+routes.route('/authenticate').post(AuthController.create);
+
+routes
+  .route('/users')
+  .get(AuthMiddleware, UserController.list)
+  .post(UserController.create);
 routes
   .route('/users/:guid')
-  .put(UserController.edit)
-  .delete(UserController.destroy);
+  .put(AuthMiddleware, UserController.edit)
+  .delete(AuthMiddleware, UserController.destroy);
 
-routes.route('/events').get(EventController.list).post(EventController.create);
+routes
+  .route('/events')
+  .get(AuthMiddleware, EventController.list)
+  .post(AuthMiddleware, EventController.create);
 routes
   .route('/events/:guid')
-  .put(EventController.edit)
-  .delete(EventController.destroy);
+  .put(AuthMiddleware, EventController.edit)
+  .delete(AuthMiddleware, EventController.destroy);
 
 export default routes;

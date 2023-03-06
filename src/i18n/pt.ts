@@ -3,4 +3,7 @@ export const messages = {
   userNotFound: 'Usuario não encontrado.',
   userEmailFound: 'Este email já está cadastrado.',
   eventNotFound: 'Evento não encontrado.',
+  passwordOrEmailIncorrect: 'Email e/ou senha invalido.',
+  tokenNotProvided: 'Token não informado.',
+  userNotAutenticate: 'Usuario não autenticado',
 };
